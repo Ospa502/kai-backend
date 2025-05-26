@@ -1,18 +1,18 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
+
+const PORT = process.env.PORT || 3000;
+
+app.use(cors());
 app.use(express.json());
 
 app.post("/mensaje", (req, res) => {
   const { message, sender_id } = req.body;
-  console.log("Mensaje recibido:", message, "de:", sender_id);
-
-  res.json({
-    respuesta: `Hola, soy Kai. Recibí tu mensaje: "${message}"`,
-    sender_id: sender_id
-  });
+  console.log(`Mensaje recibido de ${sender_id}: ${message}`);
+  res.json({ respuesta: `Hola, soy Kai. Usted escribió: '${message}'` });
 });
 
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en puerto ${PORT}`);
+  console.log(`Servidor activo en puerto ${PORT}`);
 });
